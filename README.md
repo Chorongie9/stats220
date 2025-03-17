@@ -12,6 +12,9 @@ A little about me:
 - A meme that captures how I currently feel about my university studies is 
 ![shai-gilgeous-alexander-shai](https://github.com/user-attachments/assets/6bc34dd7-6625-48ae-aa3f-01409f55c392)
 - My favourite song is [Good Things Fall Apart vs Sad Songs](https://www.youtube.com/watch?v=uODuvT8m2-o)
+- How I feel day to day:
+![dnb-drum-and-bass](https://github.com/user-attachments/assets/528fbe8f-e6ce-4e90-9c29-1cce6fc29a42)
+
 - My top 5 favourite foods are:
   1. Korean BBQ
   2. Burgers
