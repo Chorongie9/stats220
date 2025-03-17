@@ -2,7 +2,7 @@
 
 ## A little more about me 
 
-This is my *repo*x for __STATS 220__. 
+This is my *repo* for __STATS 220__. 
 
 A little about me:
 
@@ -11,3 +11,9 @@ A little about me:
 - I am interested in learning about how I can use technology to infer and learn more about data, and how modern technology has influenced statistics over the years. 
 - A meme that captures how I currently feel about my university studies is ([https://media1.tenor.com/m/MYZgsN2TDJAAAAAC/this-is.gif](https://tenor.com/bUJwg.gif))
 - My favourite song is [Good Things Fall Apart vs Sad Songs](https://www.youtube.com/watch?v=uODuvT8m2-o)
+- My top 5 favourite foods are:
+  1. Korean BBQ
+  2. Burgers
+  3. Fried Chicken
+  4. Kimchi
+  5. Roast Goose
