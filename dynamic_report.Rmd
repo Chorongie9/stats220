@@ -12,33 +12,34 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #82AC9F;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    text-align: center; /* Center text inside body */
-}
-
-.main-container {
-    background: white;
-    padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    max-width: 600px;
-    width: 90%;
-    text-align: center; /* Ensure all text inside is centered */
-    overflow: hidden;
-}
-
-h2, h3 {
     text-align: center;
+}
+
+
+h1, h2, h3 {
+    text-align: center;
+    color: #2E4F4F;
+    font-weight: bold;
+}
+
+h1{
+  font-size: 40px;
+}
+
+h2{
+   font-size: 30px;
 }
 
 p {
-    color: #666;
+    color: white;
     line-height: 1.6;
     text-align: center;
+    font-size: 16px;
 }
 
 img {
@@ -55,43 +56,30 @@ img {
 }
 
 ```
-
-# Observations from the Gym
-
-In this report, I will go over observations that I noticed at the gym and the potential reasons for these observations.
-
-For this report, over a week, I visited my home gym at different time intervals to observe some patterns. The things I observed were:
-- The most trained body part at any given time.
-- The type of headphones predominantly used.
-- The number of benches that were unused.
-
-Below are two bar charts: one showing the most trained body part and another displaying the frequency of available benches.
-
 ```{r}
 library(tidyverse)
 library(magick)
 
 csv_file <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ04B5fi8eIMpR6BER8-1_tTkbkE_GAuZbHfcaB5Uq19bqRKGwXopzb8aM_4kvITp4Uh5dQMw8rMGIp/pub?output=csv"
 logged_data <- read_csv(csv_file) 
-
+#Setting the data, and then renaming it
 latest_data <- logged_data%>%
   rename(time_arrived = 2, 
          benches_available = 3, 
          most_popular_headphones = 4, 
-         most_trained_bodypart = 5)
+         most_trained_bodypart = 5,
+         trained = 6)
+```
+# Observations from the Gym
 
-# Bar chart for most trained body part
-latest_data %>%  
-  ggplot() +  
-  geom_bar(aes(x=most_trained_bodypart), fill="#007bff") +
-  labs(title="Most Trained Body Part", x="Body Part", y="Count")
+In this report, I will go over observations that I noticed at the gym and analyse the information to see if I worked out when I went into the gym or not at that time
 
-# Bar chart for benches available
-latest_data %>%  
-  ggplot() +  
-  geom_bar(aes(x=benches_available), fill="#28a745") +
-  labs(title="Availability of Benches", x="Benches Available", y="Count")
+For this report, over a week, I visited my home gym at different time intervals to observe some patterns. The things I observed were:
+- The most trained body part at any given time. '\n'
+- The number of benches that were unused. '\n'
+- The predominant type of headphones being Used. '\n'
 
+```{r}
 # Finding key statistics for benches available
 mean_benches_available <- mean(latest_data$benches_available)
 
@@ -102,9 +90,37 @@ workout_data <- table(latest_data$most_trained_bodypart)
 most_common_workout <- names(workout_data[which.max(workout_data)])
 least_common_workout <- names(workout_data[which.min(workout_data)])
 ```
-
+## Summary Values
 When visiting the gym, the average number of available benches is **`r mean_benches_available`**.
 
 The most popular body part to train is **`r most_common_workout`**, whereas the least popular is **`r least_common_workout`**.
 
-![](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM21sbHJ1eHpmaTJ4bWQ3Y2x2aWt4N21zdDNpemNnMWYza3QycXB2OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lOqNS2HUyN8OJV0CuF/giphy.gif)
+
+Below are two bar charts: one showing the most trained body part and another displaying the frequency of available benches.
+
+
+## Bar Chart 1 
+```{r}
+
+# Bar chart for most trained body part
+latest_data %>%  
+  ggplot() +  
+  geom_bar(aes(x=most_trained_bodypart, fill = trained)) +
+  labs(title="Most Trained Body Part", x="Body Part", y="Count")
+```
+
+Here we see the bar chart for information regarding the body part that was being trained the most when I walked into the gym. We notice that the most popular body part to train seems to be chest, whereas the least popular seems to be abs. We can also see that when the most train body parts were chest - I never trained that day. 
+
+## Bar Chart 2
+```{r}
+# Bar chart for benches available, vs if I actually trained or not
+latest_data %>% 
+  ggplot()+
+  geom_bar(aes(x=benches_available, fill = trained))+
+  labs(title="Benches available vs If I trained or not")
+
+
+```
+
+Here we see the bar chart for how often a certain number of benches was available. To note, the maximum number of benches in the gym is 5. The most common number of benches that were available was 0, meaning the gym was busy at that time. We can see that the more benches were available - the more likely it was that I would train that day. 
+
