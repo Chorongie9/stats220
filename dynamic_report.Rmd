@@ -11,24 +11,13 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 90;
     background-color: #82AC9F;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     text-align: center;
-}
-
-.main-container {
-    background: white;
-    padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    max-width: 800px; /* Ensures text doesn't stretch too wide */
-    width: 90%;
-    text-align: center;
-    overflow: hidden;
 }
 
 h1, h2, h3 {
