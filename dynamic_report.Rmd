@@ -20,6 +20,16 @@ body {
     text-align: center;
 }
 
+.main-container {
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 800px; /* Ensures text doesn't stretch too wide */
+    width: 90%;
+    text-align: center;
+    overflow: hidden;
+}
 
 h1, h2, h3 {
     text-align: center;
@@ -27,19 +37,21 @@ h1, h2, h3 {
     font-weight: bold;
 }
 
-h1{
-  font-size: 40px;
+h1 {
+    font-size: 40px;
 }
 
-h2{
-   font-size: 30px;
+h2 {
+    font-size: 30px;
 }
 
 p {
     color: white;
     line-height: 1.6;
-    text-align: center;
     font-size: 16px;
+    max-width: 750px; /* Restricts text width */
+    margin: 0 auto; /* Centers text blocks */
+    padding: 10px;
 }
 
 img {
@@ -52,6 +64,11 @@ img {
 @media (max-width: 768px) {
     .main-container {
         width: 95%;
+        max-width: 600px;
+    }
+
+    p {
+        max-width: 90%;
     }
 }
 
