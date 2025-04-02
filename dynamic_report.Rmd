@@ -17,6 +17,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    text-align: center; /* Center text inside body */
 }
 
 .main-container {
@@ -26,13 +27,18 @@ body {
     border-radius: 10px;
     max-width: 600px;
     width: 90%;
-    text-align: center;
+    text-align: center; /* Ensure all text inside is centered */
     overflow: hidden;
+}
+
+h2, h3 {
+    text-align: center;
 }
 
 p {
     color: #666;
     line-height: 1.6;
+    text-align: center;
 }
 
 img {
@@ -47,6 +53,7 @@ img {
         width: 95%;
     }
 }
+
 ```
 
 # Observations from the Gym
