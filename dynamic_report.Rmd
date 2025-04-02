@@ -92,6 +92,12 @@ From this I then also observed whether or not I decided to train when I walked i
 # Finding key statistics for benches available
 mean_benches_available <- mean(latest_data$benches_available) %>% round(1)
 
+
+
+#Finding the most common headphone
+headphone_data <- table(latest_data$most_popular_headphones)
+most_common_headphone <- names(headphone_data[which.max(headphone_data)])
+
 #Finding data for most common workout
 workout_data <- table(latest_data$most_trained_bodypart)
 
@@ -103,6 +109,8 @@ least_common_workout <- names(workout_data[which.min(workout_data)])
 When visiting the gym, the average number of available benches is **`r mean_benches_available`**.
 
 The most popular body part to train is **`r most_common_workout`**, whereas the least popular is **`r least_common_workout`**.
+
+The most popular headphone kind was **`r most_common_headphone`**
 
 
 Below are a number of bar charts for us to have a better idea at what the trends looked like at the gym, how these factors impacted my decision to train any given time I was there, and see if there were any patterns present between certain times and the most common bodyparts being trained. 
