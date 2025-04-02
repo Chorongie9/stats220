@@ -81,10 +81,12 @@ latest_data <- logged_data%>%
 
 In this report, I will go over observations that I noticed at the gym and analyse the information to see if I worked out when I went into the gym or not at that time, and to see what times certain body parts were most commonly trained at the gym. 
 
-For this report, over a week, I visited my home gym at different time intervals to observe some patterns. The things I observed were:<br>
+For this report, over the past week and a half, I visited my home gym at different time intervals to observe some patterns. The things I observed were:<br>
 - The most trained body part at any given time. <br>
 - The number of benches that were unused. <br>
 - The predominant type of headphones being Used. <br>
+
+From this I then also observed whether or not I decided to train when I walked in. 
 
 ```{r}
 # Finding key statistics for benches available
@@ -103,8 +105,7 @@ When visiting the gym, the average number of available benches is **`r mean_benc
 The most popular body part to train is **`r most_common_workout`**, whereas the least popular is **`r least_common_workout`**.
 
 
-Below are two bar charts: one showing the most trained body part and another displaying the frequency of available benches.
-
+Below are a number of bar charts for us to have a better idea at what the trends looked like at the gym, how these factors impacted my decision to train any given time I was there, and see if there were any patterns present between certain times and the most common bodyparts being trained. 
 
 ## Bar Chart 1 
 ```{r}
@@ -116,7 +117,7 @@ latest_data %>%
   labs(title="Most Trained Body Part", x="Body Part", y="Count")
 ```
 
-Here we see the bar chart for information regarding the body part that was being trained the most when I walked into the gym. We notice that the most popular body part to train seems to be chest, whereas the least popular seems to be abs. We can also see that when the most train body parts were chest - I never trained that time I walked in. Typically the reason for this is that when Chest is the predominantly trained muscle group at the gym, it will also be during the busiest times at the gym, meaning waiting around for equipment and such, which is not ideal for me. As a result, I avoided training at these times. 
+Here we see the bar chart for information regarding the body part that was being trained the most when I walked into the gym. We notice that the most popular body part to train seems to be chest, whereas the least popular seems to be abs. We can also see that when the most train body parts were chest - I never trained that time I walked in. Typically the reason for this is that when Chest is the predominantly trained muscle group at the gym, it will also be during the busiest times at the gym, meaning waiting around for equipment and such, which is not ideal for me, due to being on a tight schedule and wanting to avoid wasting time. As a result, I avoided training at these times. 
 
 ## Bar Chart 2
 ```{r}
@@ -129,7 +130,7 @@ latest_data %>%
 
 ```
 
-Here we see the bar chart for how often a certain number of benches was available. To note, the maximum number of benches in the gym is 5. The most common number of benches that were available was 0, meaning the gym was busy at that time. We can see that the more benches were available - the more likely it was that I would train that day. This is because benches are most typically an indication of how busy the gym is at any given time, and the less busy the gym is the more appealing it is for me to train at that time. The reason for this is that when it's less busy, more machines & equipment are available and I don't have to either wait for equipment to free up or change my routine and do a different exercise because the one I want to do is taken. 
+Here we see the bar chart for how often a certain number of benches was available. To note, the maximum number of benches in the gym is 5. The most common number of benches that were available was 0, meaning the gym was busy at that time. We can see that the more benches were available - the more likely it was that I would train that day. This is because benches are most typically an indication of how busy the gym is at any given time due to them being the most popular pieces of equipment, and the less busy the gym is the more appealing it is for me to train at that time. The reason for this is that when it's less busy, more machines & equipment are available and I don't have to either wait for equipment to free up or change my routine and do a different exercise because the one I want to do is taken. 
 
 
 ## Bar Chart 3
@@ -144,7 +145,9 @@ latest_data %>%
 ```
 From our third bar chart, we can begin to identify trends based on the time when I arrived at the gym, and what the predominant lift was. From looking at it, we can identify some primary trends. Firstly, Cardio was most commonly done in the morning or late at night - the reason likely being people that have busy & sedentary lifestyles ( eg. 9 - 5 office job ) want to get their daily steps in, and the best time for them to do so is before work or after work - hence morning and night. 
 <br>
-Secondly we notice that chest is most common between the times of 2-5pm, which is also often times that are busiest at the gym due to the number of school kids coming in after school. With teenagers , typically the most popular lifts are Bench Press & Incline Dumbell Chest Press - both lifts that are typically show off type lifts, and both lifts are chest based movements As a result, it would make sense for chest to be the most predominantly trained muscle group during the afternoon - when there are typically the most teenagers present at the gym, right as school finishes. 
+Another trend we notice is that legs was a relatively common workout done in the morning. The reason for this is likely due to legs being quite a demanding body part to train, so for most people hitting legs when they are freshest in the morning and without any mental & physical fatigue from work is the best option for them. 
+<br>
+Finally we notice that chest is most common between the times of 2-5pm, which is also often times that are busiest at the gym due to the number of school kids coming in after school. With teenagers , typically the most popular lifts are Bench Press & Incline Dumbell Chest Press - both lifts that are typically show off type lifts, and both lifts are chest based movements As a result, it would make sense for chest to be the most predominantly trained muscle group during the afternoon - when there are typically the most teenagers present at the gym, right as school finishes. 
 
 
 ## Bar Chart 4
