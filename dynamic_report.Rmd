@@ -89,11 +89,11 @@ latest_data %>%
 mean_benches_available <- mean(latest_data$benches_available)
 
 #Finding data for most common workout
-workout_data <- latest_data$most_trained_bodypart
+workout_data <- table(latest_data$most_trained_bodypart)
 
 # Determining the most and least common workouts
-most_common_workout <- max(workout_data)
-least_common_workout <- min(workout_data)
+most_common_workout <- names(workout_data[which.max(workout_data)])
+least_common_workout <- names(workout_data[which.min(workout_data)])
 ```
 
 When visiting the gym, the average number of available benches is **`r mean_benches_available`**.
