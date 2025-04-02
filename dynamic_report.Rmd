@@ -64,8 +64,14 @@ Below are two bar charts: one showing the most trained body part and another dis
 library(tidyverse)
 library(magick)
 
-latest_data <- read_csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vQ04B5fi8eIMpR6BER8-1_tTkbkE_GAuZbHfcaB5Uq19bqRKGwXopzb8aM_4kvITp4Uh5dQMw8rMGIp/pub?output=csv') %>%
-  rename(time_arrived = 2, benches_available = 3, most_popular_headphones = 4, most_trained_bodypart = 5)
+csv_file <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ04B5fi8eIMpR6BER8-1_tTkbkE_GAuZbHfcaB5Uq19bqRKGwXopzb8aM_4kvITp4Uh5dQMw8rMGIp/pub?output=csv"
+logged_data <- read_csv(csv_file) 
+
+latest_data <- logged_data%>%
+  rename(time_arrived = 2, 
+         benches_available = 3, 
+         most_popular_headphones = 4, 
+         most_trained_bodypart = 5)
 
 # Bar chart for most trained body part
 latest_data %>%  
@@ -79,13 +85,15 @@ latest_data %>%
   geom_bar(aes(x=benches_available), fill="#28a745") +
   labs(title="Availability of Benches", x="Benches Available", y="Count")
 
-# Finding key statistics
+# Finding key statistics for benches available
 mean_benches_available <- mean(latest_data$benches_available)
 
+#Finding data for most common workout
+workout_data <- latest_data$most_trained_bodypart
+
 # Determining the most and least common workouts
-freq_table <- table(latest_data$most_trained_bodypart)
-most_common_workout <- names(freq_table[which.max(freq_table)])
-least_common_workout <- names(freq_table[which.min(freq_table)])
+most_common_workout <- max(workout_data)
+least_common_workout <- min(workout_data)
 ```
 
 When visiting the gym, the average number of available benches is **`r mean_benches_available`**.
