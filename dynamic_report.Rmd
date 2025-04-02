@@ -140,7 +140,7 @@ From our third bar chart, we can begin to identify trends based on the time when
 Secondly we notice that chest is most common between the times of 2-5pm, which is also often times that are busiest at the gym due to the number of school kids coming in after school. With teenagers , typically the most popular lifts are Bench Press & Incline Dumbell Chest Press - both lifts that are typically show off type lifts, and both lifts are chest based movements As a result, it would make sense for chest to be the most predominantly trained muscle group during the afternoon - when there are typically the most teenagers present at the gym, right as school finishes. 
 
 
-# Bar Chart 4
+## Bar Chart 4
 ```{r}
 # Bar chart for analyzing times I visited the gym and when I trained
 latest_data %>%
