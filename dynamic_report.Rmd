@@ -1,0 +1,115 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container for Centering Content */
+.container {
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    overflow: hidden; /* Ensures content does not overflow */
+}
+
+/* Headings */
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Paragraphs */
+p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Buttons */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Center and Style Images */
+img {
+    max-width: 100%; /* Ensures images do not overflow the container */
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Removes space below image */
+    margin: 0 auto; /* Centers image */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+}
+
+```
+<div class = "container"> 
+## Observations from the Gym
+
+
+In this report, I will go over observations that I notice at the gym, and the potential reasons for these observations. 
+
+For this report, over a week I went to my home gym several different times at different time intervals in order to observe some patterns. The things I observed were what the most trained body part was at any given time I walked in, what type of headphones were predominantly used and what was the number of benches that were unused. 
+
+Below are two bar charts - one is a chart to see what the most trained body part I was able to observe when walking in, and the second is a bar chart to show how often a certain number of benches was available when I walked into the gym. 
+```{r}
+library(tidyverse)
+library(magick)
+latest_data <- read_csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vQ04B5fi8eIMpR6BER8-1_tTkbkE_GAuZbHfcaB5Uq19bqRKGwXopzb8aM_4kvITp4Uh5dQMw8rMGIp/pub?output=csv') %>%
+  rename(time_arrived = 2, benches_available = 3, most_popular_headphones = 4, most_trained_bodypart = 5)
+  
+latest_data %>% 
+  ggplot() + 
+  geom_bar(aes(x=most_trained_bodypart))
+
+latest_data %>% 
+  ggplot() + 
+  geom_bar(aes(x=benches_available))
+
+#Finding the variables to use 
+mean_benches_available <- mean(latest_data$benches_available)
+
+#Attaining the variables I want to discuss
+freq_table <- table(latest_data$most_trained_bodypart)
+most_common_workout <- names(freq_table[which.max(freq_table)])
+least_common_workout <- names(freq_table[which.min(freq_table)])
+```
+When going to the gym, we notice that on average there are `r mean_benches_available` benches available for use.
+
+The most popular body part to train seems to be `r most_common_workout`, whereas the least popular is `r least_common_workout`.
+
+![](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM21sbHJ1eHpmaTJ4bWQ3Y2x2aWt4N21zdDNpemNnMWYza3QycXB2OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lOqNS2HUyN8OJV0CuF/giphy.gif)
+</div>
