@@ -1,13 +1,34 @@
 ---
-title: "My Dynamic Report"
+title: How does the business of the Gym impact when I am going to train? 
 output: html_document
 ---
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 ```
 
-```{css, echo=FALSE}
+```{js}
+$(function() {
+  $(".level2").css('visibility', 'hidden');
+  $(".level2").first().css('visibility', 'visible');
+  $(".container-fluid").height($(".container-fluid").height() + 300);
+  $(window).on('scroll', function() {
+    $('h2').each(function() {
+      var h2Top = $(this).offset().top - $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (h2Top >= 0 && h2Top <= windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'visible');
+      } else if (h2Top > windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'hidden');
+      }
+    });
+  });
+})
+```
+
+```{css}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -61,111 +82,45 @@ img {
         max-width: 90%;
     }
 }
-
 ```
-```{r}
-library(tidyverse)
-library(magick)
+## Visual Data Story 
+In this visual data story I want to explore factors and observations I've made at the gym, and how they may potentially correlate with my choice to train on any given day, and what days I may be more likely to train than others. 
 
-csv_file <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ04B5fi8eIMpR6BER8-1_tTkbkE_GAuZbHfcaB5Uq19bqRKGwXopzb8aM_4kvITp4Uh5dQMw8rMGIp/pub?output=csv"
-logged_data <- read_csv(csv_file) 
-#Setting the data, and then renaming it
-latest_data <- logged_data%>%
-  rename(time_arrived = 2, 
-         benches_available = 3, 
-         most_popular_headphones = 4, 
-         most_trained_bodypart = 5,
-         trained = 6)
-```
-# Observations from the Gym
 
-In this report, I will go over observations that I noticed at the gym and analyse the information to see if I worked out when I went into the gym or not at that time, and to see what times certain body parts were most commonly trained at the gym. 
+## How did the mean number of benches differ depending if I trained or not?
 
-For this report, over the past week and a half, I visited my home gym at different time intervals to observe some patterns. The things I observed were:<br>
-- The most trained body part at any given time. <br>
-- The number of benches that were unused. <br>
-- The predominant type of headphones being Used. <br>
+![Plot of mean number of benches vs Trained or Not Trained](plot1.png)
 
-From this I then also observed whether or not I decided to train when I walked in. 
+Here we see the plot that compares the mean number of benches on days that I train vs the mean number of benches on times that I did not train. From our graph, we can see a clear discrepancy - as the mean number of benches on instances when I was at the gym and trained is far greater than when I did not train. This highlights my tendency to train at times where the gym is evidently less busy, but we can also look at other trends as to when the gym may be less or more busy. 
 
-```{r}
-# Finding key statistics for benches available
-mean_benches_available <- mean(latest_data$benches_available) %>% round(1)
+
+## How did the mean number of benches differ depending on whether Upper or Lower body was the majority?
+
+![Plot of Mean Benches Available when Most people train upper vs lower ](plot2.png)
+
+From this graph, we now see on days where most people were training upper body, the mean number of benches was far lower than on days where most people trained lower body. For this I considered Lower Body as days when Cardio / Legs were the dominant body group trained, and since neither exercise uses the benches often this could be a reason for this inherent difference. Another reason could be that days where lower body was trained tended to be days where fewer people were at the gym, meaning the gym was also simply less busy overall, resulting in the larger mean. 
 
 
 
-#Finding the most common headphone
-headphone_data <- table(latest_data$most_popular_headphones)
-most_common_headphone <- names(headphone_data[which.max(headphone_data)])
-
-#Finding data for most common workout
-workout_data <- table(latest_data$most_trained_bodypart)
-
-# Determining the most and least common workouts
-most_common_workout <- names(workout_data[which.max(workout_data)])
-least_common_workout <- names(workout_data[which.min(workout_data)])
-```
-## Summary Values
-When visiting the gym, the average number of available benches is **`r mean_benches_available`**.
-
-The most popular body part to train is **`r most_common_workout`**, whereas the least popular is **`r least_common_workout`**.
-
-The most popular headphone kind was **`r most_common_headphone`**
 
 
-Below are a number of bar charts for us to have a better idea at what the trends looked like at the gym, how these factors impacted my decision to train any given time I was there, and see if there were any patterns present between certain times and the most common bodyparts being trained. 
 
-## Bar Chart 1 - Most Trained Body Part
-```{r}
+## A Representation of how many times I visited the gym each day. 
 
-# Bar chart for most trained body part
-latest_data %>%  
-  ggplot() +  
-  geom_bar(aes(x=most_trained_bodypart, fill = trained)) +
-  labs(title="Most Trained Body Part", x="Body Part", y="Count")
-```
-
-Here we see the bar chart for information regarding the body part that was being trained the most when I walked into the gym. We notice that the most popular body part to train seems to be chest, whereas the least popular seems to be abs. We can also see that when the most train body parts were chest - I never trained that time I walked in. Typically the reason for this is that when Chest is the predominantly trained muscle group at the gym, it will also be during the busiest times at the gym, meaning waiting around for equipment and such, which is not ideal for me, due to being on a tight schedule and wanting to avoid wasting time. As a result, I avoided training at these times. 
-
-## Bar Chart 2 - Number of Benches Available vs If I Trained
-```{r}
-# Bar chart for benches available, vs if I actually trained or not
-latest_data %>% 
-  ggplot()+
-  geom_bar(aes(x=benches_available, fill = trained))+
-  labs(title="Benches available vs If I trained or not")
+![How often I visited the gym each day for my responses](plot3.png)
+Attached here is a graph of how often I visited the gym on any given day, to get a more broad spectrum and better understand the habits of those at the gym.
 
 
-```
+## Findings
 
-Here we see the bar chart for how often a certain number of benches was available. To note, the maximum number of benches in the gym is 5. The most common number of benches that were available was 0, meaning the gym was busy at that time. We can see that the more benches were available - the more likely it was that I would train that day. This is because benches are most typically an indication of how busy the gym is at any given time due to them being the most popular pieces of equipment, and the less busy the gym is the more appealing it is for me to train at that time. The reason for this is that when it's less busy, more machines & equipment are available and I don't have to either wait for equipment to free up or change my routine and do a different exercise because the one I want to do is taken. 
-
-
-## Bar Chart 3 - Time I went to Gym vs Most Trained Body Part at the Time
-```{r}
-# Bar chart for analyzing times I visited the gym, and what lifts were the most predominant at that time
-latest_data %>%
-  ggplot()+
-  geom_bar(aes(x=time_arrived, fill=most_trained_bodypart))+
-  labs(title="Times I went to the gym vs What the most trained bodypart was")
+From this information, we can see that I was more likely to train on days where the predominant body group was lower body, as these tended to be the days where the largest number of benches was available. From my own point of view - I tend to train upper body far more than lower body, so this was relatively true, as I needed benches for far more of my exercises, so I was much more likely to train when I walked in and saw benches available. My findings tended to assume I trained on days where it was simply less busy. 
 
 
-```
-From our third bar chart, we can begin to identify trends based on the time when I arrived at the gym, and what the predominant lift was. From looking at it, we can identify some primary trends. Firstly, Cardio was most commonly done in the morning or late at night - the reason likely being people that have busy & sedentary lifestyles ( eg. 9 - 5 office job ) want to get their daily steps in, and the best time for them to do so is before work or after work - hence morning and night. 
-<br>
-Another trend we notice is that legs was a relatively common workout done in the morning. The reason for this is likely due to legs being quite a demanding body part to train, so for most people hitting legs when they are freshest in the morning and without any mental & physical fatigue from work is the best option for them. 
-<br>
-Finally we notice that chest is most common between the times of 2-5pm, which is also often times that are busiest at the gym due to the number of school kids coming in after school. With teenagers , typically the most popular lifts are Bench Press & Incline Dumbell Chest Press - both lifts that are typically show off type lifts, and both lifts are chest based movements As a result, it would make sense for chest to be the most predominantly trained muscle group during the afternoon - when there are typically the most teenagers present at the gym, right as school finishes. 
+## Were my findings accurate? 
+
+![Plot of Mean Benches Available vs how busy it is](plot4.png)
+
+From this bar graph, we can see that days where more benches were available, the less busy it was, which means that our assumption that I was more likely to train on less busy days turned out to be correct. 
 
 
-## Bar Chart 4 - Time I visited the Gym vs If I Trained
-```{r}
-# Bar chart for analyzing times I visited the gym and when I trained
-latest_data %>%
-  ggplot()+
-  geom_bar(aes(x=time_arrived, fill=trained))+
-  labs(title="Times I went to the gym vs How many benches were available")
 
-
-```
-From our fourth and final bar chart, we can see that there is a pretty clear trend on when I preferred to train - which is during the early mornings & late at night. As seen in the previous bar charts, I opted to train at times when the most benches were available - which is a reasonable indicator of how busy the gym is because the benches are typically the most used pieces of equipment due to their versatility. From this we can therefore infer that the least busy times at the gym are the early mornings and later on at night, as these are times I choose to train to try and avoid spending too long at the gym. 
